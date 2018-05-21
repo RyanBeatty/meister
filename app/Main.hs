@@ -1,6 +1,7 @@
 module Main where
 
-import Lib
+import Meister
 
 main :: IO ()
-main = someFunc
+main = do
+    print $ "result: " ++ (show $ mapReduce [1, 2, 3, 4] (+1))
