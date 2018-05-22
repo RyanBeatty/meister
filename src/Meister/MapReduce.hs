@@ -3,6 +3,8 @@ module Meister.MapReduce
     ( mapReduce
     ) where
 
+import Meister.Types (Mapper, Reducer)
+
 import           Data.Functor
 import qualified Data.Map.Strict as M   (empty, insertWith, toList)  
 import qualified Data.Text       as T   (Text, append, pack, unlines)
@@ -10,10 +12,7 @@ import qualified Data.Text.IO    as TIO (readFile, writeFile, putStrLn)
 
 import Data.Word
 
-type Mapper c d      = (FilePath -> T.Text -> [(c, d)])
-type Reducer c d e f = (c -> [d] -> (e, f))
-
-mapReduce :: FilePath -> FilePath -> Mapper T.Text Word64 -> Reducer T.Text Word64 T.Text Word64 -> IO ()
+mapReduce :: FilePath -> FilePath -> Mapper FilePath T.Text T.Text Word64 -> Reducer T.Text Word64 T.Text Word64 -> IO ()
 mapReduce infile outfile mapper reducer = do
     -- TODO: Assuming file is utf-8 encoded.
     -- TODO: Catch file not found error?
