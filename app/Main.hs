@@ -8,11 +8,11 @@ import           Data.Word      (Word64)
 mapper :: FilePath -> T.Text -> [(T.Text, Word64)]
 mapper _ text = flip (,) 1 <$> T.words text
 
-reducer :: T.Text -> [Word64] -> (T.Text, Word64)
-reducer w occurrences = (w, sum occurrences)
+reducer :: T.Text -> [Word64] -> Word64
+reducer _ occ = sum occ
 
 main :: IO ()
 main = do
     print "Counting Words"
-    mapReduce "package.yaml" "out.txt" mapper reducer 
+    mapReduce (newSpec "package.yaml" "out.txt" mapper reducer)
     return ()
