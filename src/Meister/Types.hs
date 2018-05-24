@@ -18,6 +18,6 @@ data MeisterSpec a b c d = MeisterSpec
     , _reducer    :: Reducer c d
     }
 
-newSpec :: Inputter a b -> Outputter c d -> Mapper a b c d -> Reducer c d -> MeisterSpec a b c d
+newSpec :: Ord c => Inputter a b -> Outputter c d -> Mapper a b c d -> Reducer c d -> MeisterSpec a b c d
 newSpec = MeisterSpec
 
